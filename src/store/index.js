@@ -4,7 +4,8 @@ export default createStore({
   state () {
     return {
       ordernumber: null,
-      selectedBrowser: null
+      selectedBrowser: 'chrome',
+      mainData: null
     }
   },
   mutations: {

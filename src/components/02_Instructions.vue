@@ -22,6 +22,7 @@
       </div>
       <h3 class="h5">3. Open Developer Tools.</h3>
       <p>For this step, we're going to open up your browser's developer tools. This will be different across different browser types, so please select the browser you wish to use.</p>
+      <h3 class="h5">4. TODO</h3>
     </div>
   </div>
 </template>
