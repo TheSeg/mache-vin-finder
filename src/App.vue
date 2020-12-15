@@ -1,10 +1,20 @@
 <template>
-  <div class="container-fluid">
-    <Introduction />
-    <Preperation />
-    <Instructions />
-    <Data />
-    <Results v-if="mainData" />
+  <div>
+    <nav class="navbar navbar-dark bg-primary sticky-top">
+      <div class="container-fluid">
+        <div class="navbar-brand">Ford Mach-E Reservation Details Viewer</div>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <Introduction />
+      <hr>
+      <Preperation />
+      <hr>
+      <Instructions />
+      <hr>
+      <Data />
+      <Results v-show="mainData" />
+    </div>
   </div>
 </template>
 

@@ -4,7 +4,6 @@ export default createStore({
   state () {
     return {
       ordernumber: null,
-      selectedBrowser: 'chrome',
       mainData: null
     }
   },

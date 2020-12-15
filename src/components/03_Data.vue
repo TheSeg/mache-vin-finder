@@ -1,16 +1,16 @@
 <template>
-  <div class="row">
-    <div class="col-10">
+  <div class="row justify-content-center">
+    <div class="col-10 pb-5">
       <h2>Data Entry</h2>
       <form>
         <div class="mb-2">
           <label for="mainData" class="form-label">Paste the contents of the response inside this text box.</label>
           <textarea class="form-control" id="mainData" rows="3" v-model="this.textData"></textarea>
-          <div id="mainDataHelp" aria-describedby="mainDataHelp" class="form-text">It's OK to not see it all, just as long as it's a direct copy/paste of <em>all</em> the contents.</div>
+          <p v-if="errors" class="text-danger">Sorry! That wasn't proper JSON content. Are you sure you copied the entire response text?</p>
+          <p v-else class="text-muted">Don't worry how it's formatted in this box.</p>
         </div>
         <div class="mb-2">
           <button type="button" class="btn btn-primary btn-lg" @click="processJSON">Process</button>
-          <!-- <button type="reset" class="btn btn-danger">Reset</button> -->
         </div>
       </form>
     </div>
@@ -24,21 +24,32 @@
 </style>
 
 <script>
+import { Modal } from 'bootstrap'
+
 export default {
   name: 'Data',
   data () {
     return {
-      textData: null
+      textData: null,
+      errors: false
     }
   },
   methods: {
     processJSON (event) {
-      console.info('Processing Stuff')
-      const processed = JSON.parse(this.textData)
-      if (processed) {
-        this.$store.state.mainData = processed
-      } else {
+      this.errors = false
+      try {
+        const processed = JSON.parse(this.textData)
+        if (processed) {
+          this.$store.state.mainData = processed
+          const myModal = new Modal(document.getElementById('finalDataModal'))
+          myModal.show()
+        } else {
+          // Error times!
+          this.errors = true
+        }
+      } catch (error) {
         // Error times!
+        this.errors = true
       }
     }
   }
