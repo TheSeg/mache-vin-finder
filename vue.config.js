@@ -5,7 +5,8 @@ module.exports = {
       sass: {
         additionalData: '@import "@/styles/_bootstrap.scss";'
       }
-    }
+    },
+    sourceMap: true
   },
   devServer: {
     compress: true
