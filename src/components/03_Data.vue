@@ -6,7 +6,7 @@
         <div class="mb-2">
           <label for="mainData" class="form-label">Paste the contents of the response inside this text box.</label>
           <textarea class="form-control" id="mainData" rows="3" v-model="this.textData"></textarea>
-          <p v-if="errors" class="text-danger">Sorry! That wasn't proper JSON content. Are you sure you copied the entire response text?</p>
+          <p v-if="errors" class="text-danger" v-html="errors"></p>
           <p v-else class="text-muted">Don't worry how it's formatted in this box.</p>
         </div>
         <div class="mb-2">
@@ -40,16 +40,20 @@ export default {
       try {
         const processed = JSON.parse(this.textData)
         if (processed) {
-          this.$store.state.mainData = processed
-          const myModal = new Modal(document.getElementById('finalDataModal'))
-          myModal.show()
+          this.$store.commit('updateMainData', processed)
+          if (this.$store.state.foundVINS.length > 0) {
+            const myModal = new Modal(document.getElementById('finalDataModal'))
+            myModal.show()
+          } else {
+            this.errors = 'While proper JSON, it doesn\t look like this data has a VIN number.'
+          }
         } else {
           // Error times!
-          this.errors = true
+          this.errors = 'Sorry! That wasn\'t proper JSON content. Are you sure you copied the entire response text?'
         }
       } catch (error) {
         // Error times!
-        this.errors = true
+        this.errors = 'Sorry! That wasn\'t proper JSON content. Are you sure you copied the entire response text?'
       }
     }
   }
