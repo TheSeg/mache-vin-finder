@@ -31,8 +31,15 @@ export default {
   data () {
     return {
       textData: null,
-      errors: false
+      errors: false,
+      myModal: null
     }
+  },
+  mounted () {
+    this.myModal = new Modal(document.getElementById('finalDataModal'))
+  },
+  beforeUnmount () {
+    this.myModal.hide()
   },
   methods: {
     processJSON (event) {
@@ -42,8 +49,7 @@ export default {
         if (processed) {
           this.$store.commit('updateMainData', processed)
           if (this.$store.state.foundVINS.length > 0) {
-            const myModal = new Modal(document.getElementById('finalDataModal'))
-            myModal.show()
+            this.myModal.show()
           } else {
             this.errors = 'While proper JSON, it doesn\t look like this data has a VIN number.'
           }
