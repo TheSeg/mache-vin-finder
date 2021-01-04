@@ -10,8 +10,12 @@ const routes = [
   {
     path: '/findvin',
     name: 'FindVin',
-    // route level code-splitting
     component: () => import(/* webpackChunkName: "FindVin" */ '../views/FindVin.vue')
+  },
+  {
+    path: '/show',
+    name: 'ShowVin',
+    component: () => import(/* webpackChunkName: "ShowVin" */ '../views/ShowVin.vue')
   }
 ]
 

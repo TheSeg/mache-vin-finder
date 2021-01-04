@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify-content-center mt-3">
+  <div class="row justify-content-center">
     <div class="col-10">
       <h1>Ford Mach-E Reservation Details Viewer</h1>
       <p>This is a tool helps obtain various information from your Mach-E reservation that is sent to your browser, but not displayed. Espeically the VIN number, if your order has a build week set. Created by <a href="https://seg.fyi/" target="_blank">John "Seg" Seggerson</a>.</p>
