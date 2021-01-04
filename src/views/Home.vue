@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify-content-center">
+  <div class="container-fluid mt-2">
     <Introduction />
     <div class="row justify-content-center">
       <div class="col-5">
