@@ -7,13 +7,13 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div v-if="mainData">
-            <div v-for="(entry) in mainData.entries" :key="entry.product.code">
-              <div class="text-center" v-if="entry.product.vin">
-                <h2 class="text-center"><code class="user-select-all" v-html="entry.product.vin"></code></h2>
+          <div v-if="foundVINS">
+            <div v-for="entry in foundVINS" :key="entry">
+              <div class="text-center">
+                <h2 class="text-center"><code class="user-select-all" v-html="entry"></code></h2>
               </div>
               <div class="px-2 my-3 text-center">
-                <svg class="barcode img-fluid" jsbarcode-format="CODE128" jsbarcode-displayvalue="false" :jsbarcode-value="entry.product.vin"></svg>
+                <svg class="barcode img-fluid" jsbarcode-format="CODE128" jsbarcode-displayvalue="false" :jsbarcode-value="entry"></svg>
               </div>
             </div>
             <div class="text-center">
@@ -40,7 +40,9 @@ import JsBarcode from 'jsbarcode'
 export default {
   name: 'Results',
   computed: {
-    ...mapState(['mainData'])
+    ...mapState([
+      'foundVINS'
+    ])
   },
   mounted () {
     JsBarcode('.barcode').init()
