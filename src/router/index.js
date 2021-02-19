@@ -9,13 +9,18 @@ const routes = [
   },
   {
     path: '/findvin',
-    name: 'FindVin',
+    name: 'find-vin',
     component: () => import(/* webpackChunkName: "FindVin" */ '../views/FindVin.vue')
   },
   {
     path: '/show',
-    name: 'ShowVin',
+    name: 'show-vin',
     component: () => import(/* webpackChunkName: "ShowVin" */ '../views/ShowVin.vue')
+  },
+  {
+    path: '/details',
+    name: 'vin-details',
+    component: () => import(/* webpackChunkName: "VinDetails" */ '../views/VinDetails.vue')
   }
 ]
 

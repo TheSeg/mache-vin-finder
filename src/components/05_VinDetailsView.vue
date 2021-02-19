@@ -1,0 +1,141 @@
+<template>
+  <div>
+    <ul class="nav nav-tabs justify-content-center bg-dark text-light" id="vin-details" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button" role="tab" aria-controls="general" aria-selected="true">General</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="dealer-tab" data-bs-toggle="tab" data-bs-target="#dealer" type="button" role="tab" aria-controls="dealer" aria-selected="true">Dealer</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="model-tab" data-bs-toggle="tab" data-bs-target="#model" type="button" role="tab" aria-controls="model" aria-selected="true">Model</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="accessories-tab" data-bs-toggle="tab" data-bs-target="#accessories" type="button" role="tab" aria-controls="accessories" aria-selected="true">Accessories</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="packages-tab" data-bs-toggle="tab" data-bs-target="#packages" type="button" role="tab" aria-controls="packages" aria-selected="true">Packages</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="interior-tab" data-bs-toggle="tab" data-bs-target="#interior" type="button" role="tab" aria-controls="interior" aria-selected="true">Interior</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="exterior-tab" data-bs-toggle="tab" data-bs-target="#exterior" type="button" role="tab" aria-controls="exterior" aria-selected="true">Exterior</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="other-tab" data-bs-toggle="tab" data-bs-target="#other" type="button" role="tab" aria-controls="other" aria-selected="true">Other</button>
+      </li>
+    </ul>
+    <div class="tab-content" id="vin-details-content">
+      <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+        <table class="table bg-dark text-light">
+          <tbody>
+            <tr>
+              <td>ID#</td>
+              <td>{{ output.id }}</td>
+            </tr>
+            <tr>
+              <td>Customer Name</td>
+              <td>{{ output.customerName }}</td>
+            </tr>
+            <tr>
+              <td>Receipt Date</td>
+              <td>{{ parseDate(output.receiptDate) }}</td>
+            </tr>
+            <tr>
+              <td>Production Date</td>
+              <td>
+                <div v-if="output.productionDate">
+                  {{ parseDate(output.productionDate) }}
+                </div>
+                <div v-else>
+                  N/A
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Shipment Date</td>
+              <td>
+                <div v-if="output.shipmentDate">
+                  {{ parseDate(output.shipmentDate) }}
+                </div>
+                <div v-else>
+                  N/A
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Transit Date</td>
+              <td>
+                <div v-if="output.transitDate">
+                  {{ parseDate(output.transitDate) }}
+                </div>
+                <div v-else>
+                  N/A
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>ETA End Date</td>
+              <td>
+                <div v-if="output.etaEndDate == '1990-01-01'">
+                  N/A
+                </div>
+                <div v-else>
+                  {{ parseDate(output.etaEndDate) }}
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tab-pane fade" id="dealer" role="tabpanel" aria-labelledby="dealer-tab">
+        Dealer
+      </div>
+      <div class="tab-pane fade" id="model" role="tabpanel" aria-labelledby="model-tab">
+        Model
+      </div>
+    </div>
+    <pre>{{ output }}</pre>
+  </div>
+</template>
+
+<script>
+import Tab from 'bootstrap/js/src/tab'
+
+export default {
+  name: '05-vin-details',
+  props: {
+    output: {
+      type: Object,
+      required: true
+    }
+  },
+  mounted () {
+    const triggerTabList = [].slice.call(document.querySelectorAll('vin-details button'))
+
+    triggerTabList.forEach(function (triggerEl) {
+      const tabTrigger = new Tab(triggerEl)
+
+      triggerEl.addEventListener('click', function (event) {
+        event.preventDefault()
+        tabTrigger.show()
+      })
+    })
+  },
+  methods: {
+    parseDate (inputDate) {
+      const normalizedDate = new Date(inputDate)
+
+      return normalizedDate.toLocaleDateString(
+        'en-us',
+        {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        }
+      )
+    }
+  }
+}
+</script>
