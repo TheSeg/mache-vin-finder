@@ -1,20 +1,24 @@
 <template>
   <div class="container-fluid mt-2">
     <div class="row justify-content-center">
-      <div class="col-10">
+      <div class="col-5">
         <h1>VIN Details</h1>
         <p><strong>This will contact Ford.com with your VIN number!</strong></p>
       </div>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-auto">
-        <label for="inputVinNumber" class="col-form-label">VIN</label>
-      </div>
-      <div class="col-auto">
-        <input id="inputVinNumber" v-model="inputVin" placeholder="1AABB12CDEF123456" pattern="[A-HJ-NPR-Z0-9]{17}" type="text" class="form-control form-control-lg" maxlength="17" required />
-      </div>
-      <div class="col-auto">
-        <button type="button" class="btn btn-primary" @click="fetchVIN()">Submit</button>
+      <div class="col-5">
+        <form @submit.prevent="fetchVIN()">
+        <div class="row justify-content-center">
+          <div class="col-auto">
+            <label for="inputVinNumber" class="col-form-label">VIN</label>
+          </div>
+          <div class="col-auto">
+            <input id="inputVinNumber" v-model="inputVin" placeholder="1AABB12CDEF123456" pattern="[A-HJ-NPR-Z0-9]{17}" type="text" class="form-control form-control" maxlength="17" required />
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+        </form>
       </div>
     </div>
     <div class="row justify-content-center" v-if="output">
@@ -38,6 +42,11 @@ export default {
     return {
       inputVin: null,
       output: null
+    }
+  },
+  mounted () {
+    if (this.inputVin) {
+      this.fetchVIN()
     }
   },
   methods: {
