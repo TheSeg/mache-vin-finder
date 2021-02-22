@@ -45,7 +45,14 @@
             </tr>
             <tr>
               <td>Receipt Date</td>
-              <td>{{ parseDate(output.receiptDate) }}</td>
+              <td>
+                <div v-if="output.receiptDate">
+                  {{ parseDate(output.receiptDate) }}
+                </div>
+                <div v-else>
+                  N/A
+                </div>
+              </td>
             </tr>
             <tr>
               <td>Production Date</td>
@@ -94,7 +101,7 @@
             <tr>
               <td>ETA End Date</td>
               <td>
-                <div v-if="output.etaEndDate == '1990-01-01'">
+                <div v-if="!output.etaEndDate || output.etaEndDate == '1990-01-01'">
                   N/A
                 </div>
                 <div v-else>
@@ -155,6 +162,9 @@ export default {
   },
   methods: {
     parseDate (inputDate) {
+      if (!inputDate) {
+        return null
+      }
       const normalizedDate = new Date(inputDate)
 
       return normalizedDate.toLocaleDateString(
