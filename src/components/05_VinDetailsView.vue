@@ -4,6 +4,12 @@
       <div class="col-12">
         <h2>{{ output.year }} {{ output.make }} {{ output.vehicleLineDescription }} ({{ output.trim }}) <span class="h3 text-info">{{ checkDaysToDelivery() }}</span></h2>
       </div>
+      <div v-if="output.status" class="col-12">
+        <h3>{{ output.status }}</h3>
+      </div>
+      <div v-if="output.windowSticker" class="col-12">
+        <p><a class="btn btn-info" :href="'https://www.windowsticker.forddirect.com/windowsticker.pdf?vin=' + output.vin" target="_blank">Window Sticker</a></p>
+      </div>
     </div>
     <ul class="nav nav-tabs justify-content-center bg-dark text-light" id="vin-details" role="tablist">
       <li class="nav-item" role="presentation">
@@ -37,11 +43,15 @@
           <tbody>
             <tr>
               <td>ID#</td>
-              <td>{{ output.id }}</td>
+              <td>{{ output.id.trim() }}</td>
             </tr>
             <tr>
               <td>Customer Name</td>
               <td>{{ output.customerName }}</td>
+            </tr>
+            <tr>
+              <td>Group Order Type</td>
+              <td>{{ output.groupOrderType }}</td>
             </tr>
             <tr>
               <td>Receipt Date</td>
@@ -194,7 +204,7 @@ export default {
           status = `is "${this.currentStatus}".`
           this.daysToDelivery = 'N/A'
         } else {
-          status = `is estimated to be delivered to ${this.output.custOrderDealer.dealerName} in <strong>${this.daysToDelivery} days.</strong> `
+          status = `is estimated to be delivered to dealer in <strong>${this.daysToDelivery} days.</strong> `
         }
       }
       return status

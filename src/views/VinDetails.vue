@@ -45,6 +45,9 @@ export default {
     }
   },
   mounted () {
+    if (!this.inputVin && this.$route.query.vin) {
+      this.inputVin = this.$route.query.vin
+    }
     if (this.inputVin) {
       this.fetchVIN()
     }
