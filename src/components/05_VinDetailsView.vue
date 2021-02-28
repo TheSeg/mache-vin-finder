@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <div class="col-12">
-        <h2>{{ output.year }} {{ output.make }} {{ output.vehicleLineDescription }} ({{ output.trim }}) <span class="h3 text-info">{{ checkDaysToDelivery() }}</span></h2>
+        <h2>{{ output.year }} {{ output.make }} {{ output.vehicleLineDescription }} ({{ output.trim }}) <span class="h3 text-info" v-html="checkDaysToDelivery()"></span></h2>
       </div>
       <div v-if="output.status" class="col-12">
         <h3>{{ output.status }}</h3>
@@ -175,7 +175,7 @@ export default {
       if (!inputDate) {
         return null
       }
-      const normalizedDate = new Date(inputDate)
+      const normalizedDate = new Date(inputDate + 'T00:00:00')
 
       return normalizedDate.toLocaleDateString(
         'en-us',
@@ -187,7 +187,7 @@ export default {
       )
     },
     getDaysToDelivery (etaEndDate) {
-      const deliveryDate = new Date(etaEndDate)
+      const deliveryDate = new Date(etaEndDate + 'T00:00:00')
       const today = new Date()
       const timeDiff = Math.abs(deliveryDate.getTime() - today.getTime())
       const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24))
@@ -204,7 +204,7 @@ export default {
           status = `is "${this.currentStatus}".`
           this.daysToDelivery = 'N/A'
         } else {
-          status = `is estimated to be delivered to dealer in <strong>${this.daysToDelivery} days.</strong> `
+          status = `is estimated to be delivered to dealer in <strong>${daysToDelivery} days.</strong> `
         }
       }
       return status
