@@ -11,35 +11,36 @@
         <p><a class="btn btn-info" :href="'https://www.windowsticker.forddirect.com/windowsticker.pdf?vin=' + output.vin" target="_blank">Window Sticker</a></p>
       </div>
     </div>
-    <ul class="nav nav-tabs justify-content-center bg-dark text-light" id="vin-details" role="tablist">
+    <ul class="nav nav-pills nav-fill text-light" id="vin-details" role="tablist">
       <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button" role="tab" aria-controls="general" aria-selected="true">General</button>
+        <button class="nav-link text-light active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button" role="tab" aria-controls="general" aria-selected="true">General</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="dealer-tab" data-bs-toggle="tab" data-bs-target="#dealer" type="button" role="tab" aria-controls="dealer" aria-selected="true">Dealer</button>
+        <button class="nav-link text-light" id="dealer-tab" data-bs-toggle="tab" data-bs-target="#dealer" type="button" role="tab" aria-controls="dealer" aria-selected="true">Dealer</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="model-tab" data-bs-toggle="tab" data-bs-target="#model" type="button" role="tab" aria-controls="model" aria-selected="true">Model</button>
+        <button class="nav-link text-light" id="model-tab" data-bs-toggle="tab" data-bs-target="#model" type="button" role="tab" aria-controls="model" aria-selected="true">Model</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="accessories-tab" data-bs-toggle="tab" data-bs-target="#accessories" type="button" role="tab" aria-controls="accessories" aria-selected="true">Accessories</button>
+        <button class="nav-link text-light" id="accessories-tab" data-bs-toggle="tab" data-bs-target="#accessories" type="button" role="tab" aria-controls="accessories" aria-selected="true">Accessories</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="packages-tab" data-bs-toggle="tab" data-bs-target="#packages" type="button" role="tab" aria-controls="packages" aria-selected="true">Packages</button>
+        <button class="nav-link text-light" id="packages-tab" data-bs-toggle="tab" data-bs-target="#packages" type="button" role="tab" aria-controls="packages" aria-selected="true">Packages</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="interior-tab" data-bs-toggle="tab" data-bs-target="#interior" type="button" role="tab" aria-controls="interior" aria-selected="true">Interior</button>
+        <button class="nav-link text-light" id="interior-tab" data-bs-toggle="tab" data-bs-target="#interior" type="button" role="tab" aria-controls="interior" aria-selected="true">Interior</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="exterior-tab" data-bs-toggle="tab" data-bs-target="#exterior" type="button" role="tab" aria-controls="exterior" aria-selected="true">Exterior</button>
+        <button class="nav-link text-light" id="exterior-tab" data-bs-toggle="tab" data-bs-target="#exterior" type="button" role="tab" aria-controls="exterior" aria-selected="true">Exterior</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="other-tab" data-bs-toggle="tab" data-bs-target="#other" type="button" role="tab" aria-controls="other" aria-selected="true">Other</button>
+        <button class="nav-link text-light" id="other-tab" data-bs-toggle="tab" data-bs-target="#other" type="button" role="tab" aria-controls="other" aria-selected="true">Other</button>
       </li>
     </ul>
     <div class="tab-content" id="vin-details-content">
+
       <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
-        <table class="table bg-dark text-light">
+        <table class="table text-light">
           <tbody>
             <tr>
               <td>ID#</td>
@@ -122,22 +123,75 @@
           </tbody>
         </table>
       </div>
-      <div class="tab-pane fade" id="dealer" role="tabpanel" aria-labelledby="dealer-tab">
-        Dealer
+
+      <div class="tab-pane fade p-3" id="dealer" role="tabpanel" aria-labelledby="dealer-tab">
+        <h3>{{ output.custOrderDealer.dealerName }}</h3>
+        <div class="row">
+          <div class="col">
+            <address>
+              {{ output.custOrderDealer.custOrderDealerAddress.address1 }}<br>
+              <span v-if="output.custOrderDealer.custOrderDealerAddress.address2">{{ output.custOrderDealer.custOrderDealerAddress.address2}}<br></span>
+              <span v-if="output.custOrderDealer.custOrderDealerAddress.address3">{{ output.custOrderDealer.custOrderDealerAddress.address3}}<br></span>
+              {{ output.custOrderDealer.custOrderDealerAddress.city }}, {{ output.custOrderDealer.custOrderDealerAddress.state }} {{ output.custOrderDealer.custOrderDealerAddress.postalCode}}<br>
+              {{ output.custOrderDealer.custOrderDealerAddress.country }}
+            </address>
+          </div>
+          <div class="col">
+            <ul>
+              <li v-if="output.custOrderDealer.dealerUrl"><a :href="output.custOrderDealer.dealerUrl" target="_blank">Website</a></li>
+              <li v-if="output.custOrderDealer.dealerEmail"><a :href="'mailto:' + output.custOrderDealer.dealerEmail">Email</a></li>
+              <li v-if="output.custOrderDealer.dealerTelephone"><a :href="'tel:' + parseTel(output.custOrderDealer.dealerTelephone)">{{ output.custOrderDealer.dealerTelephone }}</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <div class="tab-pane fade" id="model" role="tabpanel" aria-labelledby="model-tab">
-        Model
+
+      <div class="tab-pane fade p-3" id="model" role="tabpanel" aria-labelledby="model-tab">
+        <cust-order-parts-info :rootObject="output.custOrderPartsInfo['Model Information']" />
+      </div>
+
+      <div class="tab-pane fade p-3" id="accessories" role="tabpanel" aria-labelledby="accessories-tab">
+        <cust-order-parts-info :rootObject="output.custOrderPartsInfo.Accessories" />
+      </div>
+
+      <div class="tab-pane fade p-3" id="packages" role="tabpanel" aria-labelledby="packages-tab">
+        <cust-order-parts-info :rootObject="output.custOrderPartsInfo.Packages" />
+      </div>
+
+      <div class="tab-pane fade p-3" id="interior" role="tabpanel" aria-labelledby="interior-tab">
+        <cust-order-parts-info :rootObject="output.custOrderPartsInfo.Interior" />
+      </div>
+
+      <div class="tab-pane fade p-3" id="exterior" role="tabpanel" aria-labelledby="exterior-tab">
+        <cust-order-parts-info :rootObject="output.custOrderPartsInfo.Exterior" />
+      </div>
+
+      <div class="tab-pane fade p-3" id="other" role="tabpanel" aria-labelledby="other-tab">
+        <cust-order-parts-info :rootObject="output.custOrderPartsInfo.Other" />
+      </div>
+
+    </div>
+    <div>
+      <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+        Show Raw Details
+      </button>
+      <div class="collapse p-3" id="collapseExample">
+        <pre>{{ output }}</pre>
       </div>
     </div>
-    <pre>{{ output }}</pre>
   </div>
 </template>
 
 <script>
 import Tab from 'bootstrap/js/src/tab'
+import Collapse from 'bootstrap/js/src/collapse'
+import CustOrderPartsInfo from './subcomponents/custOrderPartsInfo'
 
 export default {
   name: '05-vin-details',
+  components: {
+    CustOrderPartsInfo
+  },
   props: {
     output: {
       type: Object,
@@ -168,6 +222,13 @@ export default {
       })
     })
 
+    const collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
+    collapseElementList.map((collapseEl) => {
+      return new Collapse(collapseEl, {
+        toggle: false
+      })
+    })
+
     this.setStagesFinished()
   },
   methods: {
@@ -185,6 +246,9 @@ export default {
           day: 'numeric'
         }
       )
+    },
+    parseTel (inputTel) {
+      return inputTel.replace(/\D/g, '')
     },
     getDaysToDelivery (etaEndDate) {
       const deliveryDate = new Date(etaEndDate + 'T00:00:00')
