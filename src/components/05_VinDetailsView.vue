@@ -236,16 +236,21 @@ export default {
       if (!inputDate) {
         return null
       }
-      const normalizedDate = new Date(inputDate + 'T00:00:00')
-
-      return normalizedDate.toLocaleDateString(
-        'en-us',
-        {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        }
-      )
+      // Using regex as the data input may or may not change.
+      const regExString = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/
+      if (typeof inputDate === 'string' && inputDate.match(regExString)) {
+        const normalizedDate = new Date(inputDate + 'T00:00:00')
+        return normalizedDate.toLocaleDateString(
+          'en-us',
+          {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          }
+        )
+      } else {
+        return inputDate
+      }
     },
     parseTel (inputTel) {
       return inputTel.replace(/\D/g, '')
