@@ -199,7 +199,11 @@ export default {
     }
   },
   data () {
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+
     return {
+      today,
       daysToDelivery: null,
       stagesFinished: {
         inProcessing: true,
@@ -257,8 +261,7 @@ export default {
     },
     getDaysToDelivery (etaEndDate) {
       const deliveryDate = new Date(etaEndDate + 'T00:00:00')
-      const today = new Date()
-      const timeDiff = Math.abs(deliveryDate.getTime() - today.getTime())
+      const timeDiff = Math.abs(deliveryDate.getTime() - this.today.getTime())
       const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24))
       return diffDays
     },
@@ -269,7 +272,9 @@ export default {
         status = `is "${this.output.primaryStatus}"`
         this.daysToDelivery = 'N/A'
       } else if (this.output) {
-        if (new Date(this.output.etaEndDate).getFullYear() < (new Date().getFullYear())) {
+        const endDate = new Date(this.output.etaEndDate)
+        endDate.setHours(0, 0, 0, 0)
+        if (endDate.getFullYear() < (this.today.getFullYear())) {
           status = `is "${this.currentStatus}".`
           this.daysToDelivery = 'N/A'
         } else {

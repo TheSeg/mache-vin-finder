@@ -1,23 +1,19 @@
 <template>
   <div class="container-fluid mt-2">
     <div class="row justify-content-center">
-      <div class="col-5">
+      <div class="col-4">
         <h1>VIN Details</h1>
         <p><strong>This will contact Ford.com with your VIN number!</strong></p>
       </div>
-      <div class="col-5">
+      <div class="col-4">
         <form @submit.prevent="fetchVIN()">
-        <div class="row justify-content-center">
-          <div class="col-auto">
-            <label for="inputVinNumber" class="col-form-label">VIN</label>
+          <div class="mb-3">
+            <label for="inputVinNumber" class="form-label">VIN</label>
+            <input id="inputVinNumber" v-model="inputVin" placeholder="1AABB12CDEF123456" pattern="[a-hj-npr-zA-HJ-NPR-Z0-9]{17}" type="text" class="form-control" maxlength="17" required style="text-transform:uppercase;" />
           </div>
-          <div class="col-auto">
-            <input id="inputVinNumber" v-model="inputVin" placeholder="1AABB12CDEF123456" pattern="[a-hj-npr-zA-HJ-NPR-Z0-9]{17}" type="text" class="form-control form-control" maxlength="17" required style="text-transform:uppercase;" />
-          </div>
-          <div class="col-auto">
+          <div class="mb-3">
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>
-        </div>
         </form>
       </div>
     </div>
