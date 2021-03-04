@@ -12,7 +12,7 @@
             <label for="inputVinNumber" class="col-form-label">VIN</label>
           </div>
           <div class="col-auto">
-            <input id="inputVinNumber" v-model="inputVin" placeholder="1AABB12CDEF123456" pattern="[A-Ha-hJj-NPRnpr-Zz0-9]{17}" type="text" class="form-control form-control" maxlength="17" required style="text-transform:uppercase;" />
+            <input id="inputVinNumber" v-model="inputVin" placeholder="1AABB12CDEF123456" pattern="[a-hj-npr-zA-HJ-NPR-Z0-9]{17}" type="text" class="form-control form-control" maxlength="17" required style="text-transform:uppercase;" />
           </div>
           <div class="col-auto">
             <button type="submit" class="btn btn-primary">Submit</button>

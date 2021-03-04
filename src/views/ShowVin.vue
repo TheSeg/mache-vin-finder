@@ -10,7 +10,7 @@
     <div class="row justify-content-center">
       <div class="col-10 mb-3">
         <label for="inputVinNumber" class="form-label">VIN Number</label>
-        <input id="inputVinNumber" v-model="inputVin" placeholder="1AABB12CDEF123456" pattern="[A-HJ-NPR-Z0-9]{17}" type="text" class="form-control form-control-lg" maxlength="17" required />
+        <input id="inputVinNumber" v-model="inputVin" placeholder="1AABB12CDEF123456" pattern="[a-hj-npr-zA-HJ-NPR-Z0-9]{17}" type="text" class="form-control form-control-lg" maxlength="17" required style="text-transform:uppercase;" />
       </div>
     </div>
     <div class="row justify-content-center mt-5" v-show="inputVin.length === 17">
