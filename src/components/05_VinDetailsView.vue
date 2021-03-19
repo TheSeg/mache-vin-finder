@@ -7,9 +7,6 @@
       <div v-if="output.status" class="col-12">
         <h3>{{ output.status }}</h3>
       </div>
-      <div v-if="output.windowSticker" class="col-12">
-        <p><a class="btn btn-info" :href="'https://www.windowsticker.forddirect.com/windowsticker.pdf?vin=' + output.vin" target="_blank">Window Sticker</a></p>
-      </div>
     </div>
     <ul class="nav nav-pills nav-fill text-light" id="vin-details" role="tablist">
       <li class="nav-item" role="presentation">
@@ -175,6 +172,7 @@
       <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
         Show Raw Details
       </button>
+      <a class="btn btn-link" :href="`https://seg.fyi/mache-vin/#/details?vin=${output.vin}&order=${output.id.trim()}`">Direct Link</a>
       <div class="collapse p-3" id="collapseExample">
         <pre>{{ output }}</pre>
       </div>

@@ -2,7 +2,7 @@
   <div class="container-fluid mt-2">
     <Introduction />
     <div class="row justify-content-center">
-      <div class="col-5">
+      <div class="col-5 mb-3">
         <router-link :to="{ path: 'findvin' }" v-slot="{ href }" custom>
           <div class="card text-light border-info bg-dark p-2">
             <div class="card-body">
@@ -13,7 +13,18 @@
           </div>
         </router-link>
       </div>
-      <div class="col-5">
+      <div class="col-5 mb-3">
+        <router-link :to="{ path: 'details' }" v-slot="{ href }" custom>
+          <div class="card text-light border-info bg-dark p-2">
+            <div class="card-body">
+              <h5 class="card-title">VIN Details</h5>
+              <p class="card-text">This tool replicates the Ford Vehicle Order Tracking tool, but shows you all the data and loads faster!</p>
+              <a class="btn btn-primary" :href="href">VIN Details</a>
+            </div>
+          </div>
+        </router-link>
+      </div>
+      <div class="col-5 mb-3">
         <router-link :to="{ path: 'show' }" v-slot="{ href }" custom>
           <div class="card text-light border-info bg-dark p-2">
             <div class="card-body">
