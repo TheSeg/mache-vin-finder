@@ -259,7 +259,7 @@ export default {
     },
     getDaysToDelivery (etaEndDate) {
       const deliveryDate = new Date(etaEndDate + 'T00:00:00')
-      const timeDiff = Math.abs(deliveryDate.getTime() - this.today.getTime())
+      const timeDiff = deliveryDate.getTime() - this.today.getTime()
       const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24))
       return diffDays
     },
